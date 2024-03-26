@@ -1,7 +1,7 @@
 package main
 
 import (
-	"barbich/restish-swagger/swagger"
+	"github.com/barbich/restish-swagger/swagger"
 	"os"
 
 	"github.com/danielgtaylor/restish/cli"

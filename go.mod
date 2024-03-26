@@ -1,4 +1,4 @@
-module barbich/restish-swagger
+module github.com/barbich/restish-swagger
 
 go 1.22.0
 
