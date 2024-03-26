@@ -18,7 +18,6 @@ import (
 	"github.com/pb33f/libopenapi/datamodel"
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	v2 "github.com/pb33f/libopenapi/datamodel/high/v2"
-	"github.com/pb33f/libopenapi/resolver"
 	"github.com/pb33f/libopenapi/utils"
 	"github.com/spf13/cobra"
 	"golang.org/x/exp/maps"
@@ -351,7 +350,7 @@ func openapiOperation(cmd *cobra.Command, method string, uriTemplate *url.URL, p
 	}
 }
 
-func loadOpenAPI3(cfg Resolver, cmd *cobra.Command, location *url.URL, resp *http.Response) (cli.API, error) {
+func loadSwagger(cfg Resolver, cmd *cobra.Command, location *url.URL, resp *http.Response) (cli.API, error) {
 	data, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return cli.API{}, err
@@ -376,17 +375,7 @@ func loadOpenAPI3(cfg Resolver, cmd *cobra.Command, location *url.URL, resp *htt
 
 	switch doc.GetSpecInfo().SpecType {
 	case utils.OpenApi2:
-		result, errs := doc.BuildV2Model()
-		// Allow circular reference errors
-		for _, err := range errs {
-			if refErr, ok := err.(*resolver.ResolvingError); ok {
-				if refErr.CircularReference == nil {
-					return cli.API{}, fmt.Errorf("errors %v", errs)
-				}
-			} else {
-				return cli.API{}, fmt.Errorf("errors %v", errs)
-			}
-		}
+		result, _ := doc.BuildV2Model()
 		v2Model = result.Model
 	default:
 		return cli.API{}, fmt.Errorf("unsupported OpenAPI document")
@@ -511,7 +500,7 @@ func (l *loader) Detect(resp *http.Response) bool {
 func (l *loader) Load(entrypoint, spec url.URL, resp *http.Response) (cli.API, error) {
 	l.location = &spec
 	l.base = &entrypoint
-	return loadOpenAPI3(l, cli.Root, &spec, resp)
+	return loadSwagger(l, cli.Root, &spec, resp)
 }
 
 // New creates a new OpenAPI loader.
