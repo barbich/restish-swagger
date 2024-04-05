@@ -12,7 +12,7 @@ import (
 	"strings"
 
 	"github.com/danielgtaylor/casing"
-	"github.com/barbich/restish/cli"
+	"github.com/danielgtaylor/restish/cli"
 	"github.com/gosimple/slug"
 	"github.com/pb33f/libopenapi"
 	"github.com/pb33f/libopenapi/datamodel"
