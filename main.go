@@ -4,7 +4,7 @@ import (
 	"github.com/barbich/restish-swagger/swagger"
 	"os"
 
-	"github.com/danielgtaylor/restish/cli"
+	"github.com/barbich/restish/cli"
 	// "github.com/google/martian/log"
 )
 
