@@ -2,8 +2,6 @@ module github.com/barbich/restish-swagger
 
 go 1.22.0
 
-replace github.com/danielgtaylor/restish/cli v0.20.0 => github.com/barbich/restish/cli v0.20.2
-
 require (
 	github.com/barbich/restish v0.20.2
 	github.com/danielgtaylor/casing v1.0.0
