@@ -382,7 +382,7 @@ func loadSwagger(cfg Resolver, cmd *cobra.Command, location *url.URL, resp *http
 	}
 
 	// See if this server has any base path prefix we need to account for.
-	basePath := ""
+	basePath := cfg.GetBase().Path
 
 	operations := []cli.Operation{}
 	if v2Model.Paths != nil {
